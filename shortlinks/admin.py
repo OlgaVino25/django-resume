@@ -10,6 +10,7 @@ class ShortLinkAdmin(admin.ModelAdmin):
     list_filter = ("created_at",)
 
     def short_url_display(self, obj):
+        """Возвращает HTML-ссылку на короткую ссылку для отображения в админке."""
         request = getattr(self, "request", None)
         if request:
             protocol = "https" if request.is_secure() else "http"
@@ -23,5 +24,6 @@ class ShortLinkAdmin(admin.ModelAdmin):
     short_url_display.short_description = "Короткая ссылка"
 
     def changelist_view(self, request, extra_context=None):
+        """Сохраняет request в self для использования в short_url_display, затем вызывает родительский метод."""
         self.request = request
         return super().changelist_view(request, extra_context)

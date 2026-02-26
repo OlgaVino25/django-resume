@@ -30,14 +30,16 @@ class ProjectAdmin(admin.ModelAdmin):
     )
 
     def display_technologies(self, obj):
+        """Возвращает строку с перечислением технологий проекта через запятую."""
         return ", ".join([tech.name for tech in obj.technologies.all()])
 
     display_technologies.short_description = "технологии стека"
 
     def image_preview(self, obj):
+        """Возвращает HTML-код с превью изображения проекта для админки."""
         if obj.image:
             return format_html(
-                '<img src="{}" style="max-height: 100px; max-width: 0px;" />',
+                '<img src="{}" style="max-height: 100px; max-width: 100px;" />',
                 obj.image.url,
             )
         return "—"
