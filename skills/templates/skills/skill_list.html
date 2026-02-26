@@ -1,0 +1,43 @@
+{% extends "base.html" %} {% block title %}Мои навыки{% endblock %} {% block content %}
+<h1 class="mb-4">Мои навыки</h1>
+
+<div class="mb-4">
+  <p>🔴 Продуктивный — многократно применяла в проектах.</p>
+  <p>🟢 Средний — самостоятельно использовала, но требуется подглядеть в документацию.</p>
+  <p>🟡 Начальный — базовое понимание, выполняла учебные задания.</p>
+  <p>⚪ Знакомство — теория / один‑два учебных примера.</p>
+</div>
+
+{% regroup skills by get_category_display as skills_by_category %} {% for category in skills_by_category %}
+<details class="card mb-4">
+  <summary class="card-header bg-primary text-white">
+    <h4 class="mb-0">{{ category.grouper }}</h4>
+  </summary>
+  <div class="card-body">
+    <div class="row">
+      {% for skill in category.list %}
+      <div class="col-md-6 mb-3">
+        <div class="d-flex align-items-start">
+          <div class="flex-grow-1">
+            <strong>{{ skill.name }}</strong>
+            {% if skill.description %}
+            <p class="text-muted small mb-1">{{ skill.description }}</p>
+            {% endif %}
+            <span
+              class="badge {% if skill.level == '4' %}bg-danger {% elif skill.level == '3' %}bg-success {% elif skill.level == '2' %}bg-warning {% else %}bg-secondary{% endif %}"
+            >
+              {{ skill.get_level_display }}
+            </span>
+          </div>
+          {% if skill.icon %}
+          <img src="{{ skill.icon.url }}" alt="{{ skill.name }}" width="30" height="30" class="ms-2" />
+          {% endif %}
+        </div>
+      </div>
+      {% endfor %}
+    </div>
+  </div>
+</details>
+{% empty %}
+<p>Навыки пока не добавлены.</p>
+{% endfor %} {% endblock %}

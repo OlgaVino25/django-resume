@@ -1,0 +1,28 @@
+{% extends "base.html" %} {% block title %}{{ page.title }}{% endblock %} {% block content %}
+<div class="row">
+  <div class="col-12">
+    <h1 class="mb-4">{{ page.title }}</h1>
+  </div>
+</div>
+
+<div class="row align-items-start">
+  <div class="col-md-8">
+    <div style="word-wrap: break-word; overflow-wrap: break-word">{{ page.content|safe }}</div>
+  </div>
+
+  {% if page.images.exists %}
+  <div class="col-md-4 text-center text-md-end mt-4 mt-md-0 sticky-photo">
+    {% for img in page.images.all %}
+    <div class="mb-4">
+      <a href="{{ img.image.url }}" target="_blank" rel="noopener noreferrer">
+        <img src="{{ img.image.url }}" alt="{{ img.caption|default:page.title }}" class="img-fluid rounded shadow-sm" />
+      </a>
+      {% if img.caption %}
+      <p class="text-muted small mt-1">{{ img.caption }}</p>
+      {% endif %}
+    </div>
+    {% endfor %}
+  </div>
+  {% endif %}
+</div>
+{% endblock %}

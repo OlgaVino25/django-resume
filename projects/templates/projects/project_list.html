@@ -1,0 +1,57 @@
+{% extends "base.html" %} {% block title %}Мои проекты{% endblock %} {% block content %}
+<h1 class="mb-4">Мои проекты</h1>
+
+{% regroup projects by get_category_display as projects_by_category %} {% for category in projects_by_category %}
+<details class="card mb-4">
+  <summary class="card-header bg-primary text-white">
+    <h4 class="mb-0">{{ category.grouper }}</h4>
+  </summary>
+  <div class="card-body">
+    <div class="row">
+      {% for project in category.list %}
+      <div class="col-md-3 mb-4">
+        <div class="card h-100 d-flex flex-column">
+          {% if project.image %}
+          <a href="{{ project.image.url }}" class="project-image-link">
+            <img
+              src="{{ project.image.url }}"
+              class="card-img-top"
+              alt="{{ project.title }}"
+              style="max-height: 100%; object-fit: cover; height: 180px"
+            />
+          </a>
+
+          {% endif %}
+          <div class="card-body d-flex flex-column flex-grow-1">
+            <h5 class="card-title">{{ project.title }}</h5>
+            <p class="card-text">{{ project.description|truncatewords:40 }}</p>
+
+            <!-- Этот блок прижимается к низу карточки -->
+            <div class="mt-auto">
+              <!-- Стек -->
+              <p class="card-text mb-1">
+                <small class="text-muted">
+                  Стек: {% for tech in project.technologies.all %}
+                  <span class="badge bg-info">{{ tech.name }}</span>
+                  {% endfor %}
+                </small>
+              </p>
+
+              <!-- Кнопки (GitHub и Демо) -->
+              <div class="d-flex flex-wrap gap-2">
+                <a href="{{ project.github_url }}" class="btn btn-dark" target="_blank">GitHub</a>
+                {% if project.demo_url %}
+                <a href="{{ project.demo_url }}" class="btn btn-primary" target="_blank">Демо</a>
+                {% endif %}
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      {% endfor %}
+    </div>
+  </div>
+</details>
+{% empty %}
+<p>Проекты пока не добавлены.</p>
+{% endfor %} {% endblock %}
