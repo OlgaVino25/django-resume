@@ -30,6 +30,9 @@ class Project(models.Model):
         LAYOUT = "layout", "Вёрстка"
         DJANGO = "django", "Django-проекты"
         BOTS = "bots", "Чат-боты"
+        DOCKER = "docker", "Docker"
+        KUBERNETES = "kubernetes", "Kubernetes"
+        ASYNC = "async", "Асинхронное программирование"
         TEAM = "team", "Командные проекты"
         OTHER = "other", "Другое"
 
