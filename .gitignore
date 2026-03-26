@@ -39,7 +39,7 @@ MANIFEST
 # Installer logs
 pip-log.txt
 pip-delete-this-directory.txt
-*.txt
+структура.txt
 *.doc
 
 # Unit test / coverage reports
@@ -164,7 +164,7 @@ cython_debug/
 /site
 
 # Media files (загружаемые пользователями)
-/media/
+media/
 
 # Frontend build
 bundles/**
@@ -172,5 +172,5 @@ node_modules/
 
 # Ваши вспомогательные скрипты (если есть)
 convert_encoding.py
-data_utf8.json
-dump_data.py
+data.json
+dump.py
