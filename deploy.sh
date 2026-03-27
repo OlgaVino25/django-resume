@@ -25,4 +25,9 @@ echo "Копируем статику на хост для Nginx..."
 mkdir -p /opt/resume/staticfiles
 docker cp $(docker-compose -f docker-compose.prod.yml ps -q web):/app/staticfiles/. /opt/resume/staticfiles/
 
+echo "Копируем медиа на хост для Nginx..."
+mkdir -p /opt/resume/media
+docker cp $(docker-compose -f docker-compose.prod.yml ps -q web):/app/media/. /opt/resume/media/
+chmod -R 755 /opt/resume/media
+
 echo "Деплой завершён успешно!"
